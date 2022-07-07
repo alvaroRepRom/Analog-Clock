@@ -1,0 +1,93 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+body {
+    background: linear-gradient(to right, rgb(246, 246, 139), rgb(231, 190, 43));
+    display: flex; /* todo esto es para centrar el reloj en pantalla */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* hasta aqui*/
+    overflow: hidden; /* oculta el scroll */
+}
+
+.clock {
+    width: 300px;
+    height: 300px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%; /* hace un circulo */
+    border: solid black 2px;
+    position: relative; /* al ser los elementos del reloj absoluto con respecto a este, 
+                            este mismo necesita ser relativo*/
+}
+
+.clock .number {
+    --rotation: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center; /* centra los numeros */
+    transform: rotate(var(--rotation)); /* rota segun su numero */
+    font-size: 1.5rem; /* aumenta el tamaño de la letra x1.5 */
+}
+
+.clock .number1  {--rotation: 30deg}
+.clock .number2  {--rotation: 60deg}
+.clock .number3  {--rotation: 90deg}
+.clock .number4  {--rotation: 120deg}
+.clock .number5  {--rotation: 150deg}
+.clock .number6  {--rotation: 180deg}
+.clock .number7  {--rotation: 210deg}
+.clock .number8  {--rotation: 240deg}
+.clock .number9  {--rotation: 270deg}
+.clock .number10 {--rotation: 300deg}
+.clock .number11 {--rotation: 330deg}
+
+.clock .hand {
+    --rotation: 0;
+    position: absolute;
+    bottom: 50%; /* posicion desde abajo */
+    left: 50%;   /* posicion desde la izquierda */
+    border: 1px solid white;
+    border-top-left-radius: 10px;  /* redondea la esquina superior izquierda de las manecillas */
+    border-top-right-radius: 10px; /* redondea la esquina superior derecha de las manecillas */
+    transform-origin: bottom; /* coloca el centro de la transformada abajo (para el giro) */
+    z-index: 10; /* para que se vea por delante de los numeros */
+    transform: translateX(-50%) /* mueve la mitad del tamaño de las propias manecillas a la izquierda */
+               rotate(calc(var(--rotation) * 1deg)); /* calcula la posicion que le corresponde a cada 
+                                                        manecilla segun la rotacion que indice en javascript*/
+}
+
+/* se crea un nuevo elemento html a posterior del div de la clase clock, donde situamos el centro del reloj
+    donde estan colocadas las manecillas (es solo un punto negro no tiene funcionalidad) */
+.clock::after {
+    content: "";
+    position: absolute;
+    background-color: black;
+    z-index: 11;
+    width: 15px;
+    height: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+}
+
+.clock .second {
+    background-color: red;
+    width: 3px;
+    height: 45%;
+}
+
+.clock .minute {
+    background-color: black;
+    width: 7px;
+    height: 40%;
+}
+
+.clock .hour {
+    background-color: black;
+    width: 10px;
+    height: 35%;
+}
